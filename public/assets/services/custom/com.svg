@@ -1,0 +1,179 @@
+user jouney
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+  <!-- Gradient Background -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#9333EA;stop-opacity:0.2"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bg-gradient)"/>
+  
+  <!-- Rocket Symbolizing Entrepreneurial Growth -->
+  <g transform="translate(150, 100) scale(0.7)">
+    <!-- Rocket Body -->
+    <path d="M50 200 L100 50 L150 200 Z" fill="#3B82F6" stroke="#1E40AF" stroke-width="3"/>
+    
+    <!-- Rocket Flames -->
+    <path d="M100 220 L80 250 Q100 270, 120 250 Z" fill="#F97316" opacity="0.8"/>
+    <path d="M100 220 L90 250 Q100 270, 110 250 Z" fill="#FBBF24" opacity="0.6"/>
+  </g>
+  
+  <!-- User Journey Path -->
+  <path d="M50 250 Q200 150, 350 250" fill="none" stroke="#10B981" stroke-width="4" stroke-dasharray="15 10"/>
+  
+  <!-- User Story Nodes -->
+  <g>
+    <circle cx="100" cy="220" r="20" fill="#6366F1" opacity="0.7"/>
+    <circle cx="200" cy="180" r="25" fill="#EC4899" opacity="0.7"/>
+    <circle cx="300" cy="220" r="20" fill="#22D3EE" opacity="0.7"/>
+  </g>
+  
+  <!-- Connecting Lines -->
+  <line x1="120" y1="220" x2="180" y2="190" stroke="#7E22CE" stroke-width="3" stroke-dasharray="5 5"/>
+  <line x1="225" y1="190" x2="280" y2="220" stroke="#7E22CE" stroke-width="3" stroke-dasharray="5 5"/>
+  
+  <!-- Entrepreneurial Text -->
+  <text x="200" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#1F2937" font-weight="bold">
+    Accelerate User Insights
+  </text>
+</svg>
+product defs
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+  <!-- Gradient Background -->
+  <defs>
+    <linearGradient id="design-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#A855F7;stop-opacity:0.2"/>
+    </linearGradient>
+    
+    <!-- Clipping Path for Device Shapes -->
+    <clipPath id="device-clip">
+      <rect x="100" y="80" width="200" height="140" rx="15" ry="15"/>
+    </clipPath>
+  </defs>
+  
+  <!-- Gradient Background -->
+  <rect width="400" height="300" fill="url(#design-gradient)"/>
+  
+  <!-- Device Wireframe -->
+  <rect x="100" y="80" width="200" height="140" rx="15" ry="15" 
+        fill="#FFFFFF" stroke="#4B5563" stroke-width="3"/>
+  
+  <!-- UI Elements inside Device -->
+  <g clip-path="url(#device-clip)">
+    <!-- Header -->
+    <rect x="100" y="80" width="200" height="30" fill="#E5E7EB"/>
+    
+    <!-- UI Components -->
+    <rect x="120" y="120" width="160" height="20" fill="#6366F1" opacity="0.6"/>
+    <rect x="120" y="150" width="100" height="15" fill="#10B981" opacity="0.6"/>
+    <circle cx="270" cy="157" r="10" fill="#F43F5E" opacity="0.7"/>
+    
+    <!-- Prototype Connections -->
+    <path d="M180 180 L220 210" fill="none" stroke="#9333EA" stroke-width="2" stroke-dasharray="5 5"/>
+  </g>
+  
+  <!-- Design Tools Representation -->
+  <g transform="translate(50, 230) scale(0.7)">
+    <!-- Pen Tool -->
+    <path d="M50 20 L80 50 L100 30 Z" fill="#3B82F6" stroke="#1E40AF" stroke-width="2"/>
+    
+    <!-- Color Palette -->
+    <circle cx="120" cy="40" r="15" fill="#10B981"/>
+    <circle cx="150" cy="40" r="15" fill="#F43F5E"/>
+    <circle cx="180" cy="40" r="15" fill="#6366F1"/>
+  </g>
+  
+  <!-- Figma Logo Simplified -->
+  <g transform="translate(300, 230) scale(0.6)">
+    <path d="M50 50 
+             C50 33.4315 63.4315 20 80 20 
+             H110 
+             C126.569 20 140 33.4315 140 50 
+             C140 66.5685 126.569 80 110 80 
+             H80 
+             C63.4315 80 50 66.5685 50 50 Z" 
+          fill="#F24E1E"/>
+    <path d="M140 130 
+             C140 113.431 126.569 100 110 100 
+             H80 
+             C63.4315 100 50 113.431 50 130 
+             C50 146.569 63.4315 160 80 160 
+             H110 
+             C126.569 160 140 146.569 140 130 Z" 
+          fill="#FF7262"/>
+  </g>
+  
+  <!-- Entrepreneurial Text -->
+  <text x="200" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#1F2937" font-weight="bold">
+    Design. Prototype. Transform.
+  </text>
+</svg>
+
+prototype, 
+
+
+mvp
+
+
+
+mmp
+
+
+website
+
+
+setup1
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f4f4f4"/>
+  
+  <!-- Code Repositories -->
+  <g transform="translate(50, 100)">
+    <rect width="60" height="40" fill="#4a90e2" rx="5" ry="5"/>
+    <text x="30" y="25" text-anchor="middle" fill="white" font-size="12">GitHub</text>
+  </g>
+  
+  <g transform="translate(150, 100)">
+    <rect width="60" height="40" fill="#fc6d26" rx="5" ry="5"/>
+    <text x="30" y="25" text-anchor="middle" fill="white" font-size="12">GitLab</text>
+  </g>
+  
+  <g transform="translate(250, 100)">
+    <rect width="60" height="40" fill="#2684ff" rx="5" ry="5"/>
+    <text x="30" y="25" text-anchor="middle" fill="white" font-size="12">BitBucket</text>
+  </g>
+  
+  <!-- Arrows and Flow -->
+  <path d="M80,120 Q200,70 320,120" fill="none" stroke="#555" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Pipeline Stages -->
+  <g transform="translate(170, 200)">
+    <rect width="60" height="40" fill="#4caf50" rx="5" ry="5"/>
+    <text x="30" y="25" text-anchor="middle" fill="white" font-size="12">Build</text>
+  </g>
+  
+  <g transform="translate(250, 200)">
+    <rect width="60" height="40" fill="#ff9800" rx="5" ry="5"/>
+    <text x="30" y="25" text-anchor="middle" fill="white" font-size="12">Test</text>
+  </g>
+  
+  <!-- Arrowhead marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="200" y="50" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">
+    CI Pipeline Setup
+  </text>
+</svg>
+
+setup2

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <!-- Definitions for gradients and filters -->
+  <defs>
+    <!-- Gradient for the circular path -->
+    <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#808080"/>
+      <stop offset="100%" style="stop-color:#4682B4"/>
+    </linearGradient>
+    
+    <!-- Drop shadow filter -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="2"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="300" cy="300" r="250" 
+    fill="none" 
+    stroke="url(#circleGradient)" 
+    stroke-width="2" 
+    stroke-dasharray="8,4"/>
+
+  <!-- Build MVP Section -->
+  <g transform="translate(300,100)" filter="url(#shadow)">
+    <!-- Cube icon -->
+    <path d="M-30,-30 L20,-30 L30,-20 L30,30 L-20,30 L-30,20 Z" 
+      fill="#A0A0A0"/>
+    <path d="M-20,30 L-20,-20 L-30,-30 L-30,20 Z" 
+      fill="#808080"/>
+    <path d="M20,-30 L30,-20 L-20,-20 L-30,-30 Z" 
+      fill="#909090"/>
+    
+    <!-- Label -->
+    <text x="0" y="60" 
+      text-anchor="middle" 
+      font-family="Arial" 
+      font-weight="bold" 
+      fill="#666">
+      Build MVP
+    </text>
+    <text x="0" y="75" 
+      text-anchor="middle" 
+      font-family="Arial" 
+      font-size="12" 
+      fill="#888">
+      Minimum Viable Product
+    </text>
+  </g>
+
+  <!-- Test MVP Section -->
+  <g transform="translate(500,400)" filter="url(#shadow)">
+    <!-- Magnifying glass icon -->
+    <circle cx="-5" cy="-5" r="25" 
+      fill="none" 
+      stroke="#6B8E23" 
+      stroke-width="6"/>
+    <line x1="15" y1="15" x2="30" y2="30" 
+      stroke="#6B8E23" 
+      stroke-width="8" 
+      stroke-linecap="round"/>
+    
+    <!-- Label -->
+    <text x="0" y="60" 
+      text-anchor="middle" 
+      font-family="Arial" 
+      font-weight="bold" 
+      fill="#666">
+      Test MVP
+    </text>
+    <text x="0" y="75" 
+      text-anchor="middle" 
+      font-family="Arial" 
+      font-size="12" 
+      fill="#888">
+      Validate & Improve
+    </text>
+  </g>
+
+  <!-- Build MMP Section -->
+  <g transform="translate(100,400)" filter="url(#shadow)">
+    <!-- House/complete structure icon -->
+    <path d="M-30,30 L-30,-10 L0,-40 L30,-10 L30,30 Z" 
+      fill="#4682B4"/>
+    <rect x="-10" y="0" width="20" height="30" 
+      fill="#5F9EA0"/>
+    
+    <!-- Label -->
+    <text x="0" y="60" 
+      text-anchor="middle" 
+      font-family="Arial" 
+      font-weight="bold" 
+      fill="#666">
+      Build MMP
+    </text>
+    <text x="0" y="75" 
+      text-anchor="middle" 
+      font-family="Arial" 
+      font-size="12" 
+      fill="#888">
+      Minimum Marketable Product
+    </text>
+  </g>
+
+  <!-- Connecting Arrows -->
+  <g stroke-width="3" fill="none" marker-end="url(#arrowhead)">
+    <!-- MVP to Test (right side) -->
+    <path d="M350,150 Q500,200 470,350" 
+      stroke="#6B8E23"/>
+    <!-- Test to MMP -->
+    <path d="M460,430 Q300,500 140,430" 
+      stroke="#4682B4"/>
+    <!-- MMP back to MVP (left side) -->
+    <path d="M130,350 Q100,200 250,150" 
+      stroke="#808080"/>
+  </g>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" 
+      markerWidth="10" 
+      markerHeight="7" 
+      refX="9" 
+      refY="3.5" 
+      orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+</svg>

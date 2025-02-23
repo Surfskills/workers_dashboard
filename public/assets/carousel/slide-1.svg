@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <defs>
+    <!-- Gradient Definitions -->
+    <linearGradient id="imagineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B"/>
+      <stop offset="100%" style="stop-color:#FFE66D"/>
+    </linearGradient>
+    
+    <linearGradient id="sketchGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4ECDC4"/>
+      <stop offset="100%" style="stop-color:#556270"/>
+    </linearGradient>
+    
+    <linearGradient id="prototypeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6C5B7B"/>
+      <stop offset="100%" style="stop-color:#C06C84"/>
+    </linearGradient>
+
+    <!-- Flow Pattern -->
+    <pattern id="flowPattern" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M0,25 Q12.5,0 25,25 T50,25" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="1" 
+        opacity="0.1"/>
+    </pattern>
+
+    <!-- Filters -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Elements -->
+  <rect x="0" y="0" width="900" height="400" fill="#f8f9fa"/>
+  <rect x="0" y="0" width="900" height="400" fill="url(#flowPattern)"/>
+
+  <!-- Connecting Flow Path -->
+  <path d="M200,200 C300,200 350,150 450,150 C550,150 600,200 700,200" 
+    fill="none" 
+    stroke="url(#imagineGradient)" 
+    stroke-width="4" 
+    filter="url(#glow)"/>
+
+  <!-- Imagine Section -->
+  <g transform="translate(200,200)">
+    <!-- Burst Shape -->
+    <path d="M0,0 L20,-20 L0,-30 L20,-50 L0,-40 L-20,-50 L0,-30 L-20,-20 Z" 
+      fill="url(#imagineGradient)" 
+      transform="rotate(45)"
+      filter="url(#glow)"/>
+    
+    <!-- Light Bulb -->
+    <circle cx="0" cy="0" r="30" fill="url(#imagineGradient)"/>
+    <path d="M-15,0 Q0,-30 15,0 Q15,15 0,20 Q-15,15 -15,0" 
+      fill="#ffffff" 
+      opacity="0.9"/>
+    
+    <!-- Floating Ideas -->
+    <g transform="translate(0,-50)">
+      {[...Array(5)].map((_, i) => `
+        <circle 
+          cx="${Math.cos(i * Math.PI/2.5) * 30}"
+          cy="${Math.sin(i * Math.PI/2.5) * 30}"
+          r="3"
+          fill="#ffffff"
+          opacity="${0.5 + Math.random() * 0.5}"
+        />
+      `)}
+    </g>
+    
+    <text x="0" y="60" 
+      text-anchor="middle" 
+      font-family="Arial" 
+      font-weight="bold" 
+      fill="#333333"
+      font-size="16">
+      IMAGINE
+    </text>
+  </g>
+
+  <!-- Sketch Section -->
+  <g transform="translate(450,150)">
+    <!-- Dynamic Pencil -->
+    <g transform="rotate(-45)">
+      <path d="M-40,-40 L40,40 L35,45 L-45,-35 Z" 
+        fill="url(#sketchGradient)" 
+        filter="url(#glow)"/>
+      <path d="M40,40 L45,45 L40,50 L35,45 Z" 
+        fill="#4ECDC4"/>
+    </g>
+    
+    <!-- Sketch Lines -->
+    <path d="M-30,30 Q-10,10 10,-10 T40,-40" 
+      stroke="#4ECDC4" 
+      stroke-width="2" 
+      fill="none" 
+      opacity="0.6"/>
+    <path d="M-40,20 Q-20,0 0,-20 T30,-50" 
+      stroke="#4ECDC4" 
+      stroke-width="2" 
+      fill="none" 
+      opacity="0.4"/>
+    
+    <text x="0" y="60" 
+      text-anchor="middle" 
+      font-family="Arial" 
+      font-weight="bold" 
+      fill="#333333"
+      font-size="16">
+      SKETCH
+    </text>
+  </g>
+
+  <!-- Prototype Section -->
+  <g transform="translate(700,200)">
+    <!-- Wireframe Structure -->
+    <g filter="url(#glow)">
+      <!-- Base Shape -->
+      <rect x="-40" y="-40" width="80" height="80" 
+        fill="url(#prototypeGradient)" 
+        rx="10"/>
+      
+      <!-- Wireframe Elements -->
+      <line x1="-30" y1="-20" x2="30" y2="-20" 
+        stroke="#ffffff" 
+        stroke-width="2" 
+        opacity="0.8"/>
+      <line x1="-30" y1="0" x2="30" y2="0" 
+        stroke="#ffffff" 
+        stroke-width="2" 
+        opacity="0.8"/>
+      <line x1="-30" y1="20" x2="30" y2="20" 
+        stroke="#ffffff" 
+        stroke-width="2" 
+        opacity="0.8"/>
+      
+      <!-- Interactive Elements -->
+      <circle cx="-20" cy="-30" r="4" fill="#ffffff" opacity="0.9"/>
+      <circle cx="0" cy="-30" r="4" fill="#ffffff" opacity="0.9"/>
+      <circle cx="20" cy="-30" r="4" fill="#ffffff" opacity="0.9"/>
+    </g>
+    
+    <!-- Code Lines -->
+    <g transform="translate(50,-30)">
+      <path d="M0,0 L20,0 M5,10 L15,10 M0,20 L20,20" 
+        stroke="#C06C84" 
+        stroke-width="2" 
+        opacity="0.6"/>
+    </g>
+    
+    <text x="0" y="60" 
+      text-anchor="middle" 
+      font-family="Arial" 
+      font-weight="bold" 
+      fill="#333333"
+      font-size="16">
+      PROTOTYPE
+    </text>
+  </g>
+
+  <!-- Floating Design Elements -->
+  {[...Array(20)].map((_, i) => `
+    <circle 
+      cx="${100 + Math.random() * 700}"
+      cy="${50 + Math.random() * 300}"
+      r="${1 + Math.random() * 2}"
+      fill="${['#FF6B6B', '#4ECDC4', '#6C5B7B'][i % 3]}"
+      opacity="${0.1 + Math.random() * 0.2}"
+    />
+  `)}
+</svg>
