@@ -1,4 +1,3 @@
-// Header.tsx
 'use client';
 
 import { useState } from 'react';
@@ -6,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth } from '../../components/auth/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Menu, X, Wrench, GraduationCap, Share2, LogIn, UserPlus } from 'lucide-react';
+import { Menu, X, Wrench, GraduationCap, Share2, LogIn, UserPlus, ShoppingBag } from 'lucide-react';
 import DropdownButton from './DropdownButton';
 
 const Header = () => {
@@ -39,7 +38,13 @@ const Header = () => {
       label: 'Specialities', 
       icon: Wrench,
       iconColor: '#10B981'
-    }
+    },
+    ...(isAuthenticated ? [{
+      href: '/dashboard',
+      label: 'My Orders',
+      icon: ShoppingBag,
+      iconColor: '#8B5CF6'
+    }] : [])
   ];
 
   return (
@@ -88,13 +93,6 @@ const Header = () => {
                   <LogIn className="w-5 h-5" />
                   <span>Sign In</span>
                 </Link>
-                {/* <Link
-                  href="/signup"
-                  className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  <UserPlus className="w-5 h-5" />
-                  <span>Sign Up</span>
-                </Link> */}
               </div>
             ) : (
               <button
