@@ -1,9 +1,8 @@
-// src/components/orders/Orders.tsx
 import React, { useState, useEffect } from 'react';
 import { Order, Request } from '../../types/order';
 import OrderList from './OrderList';
 import Modal from './Modal';
-import { fetchOrders, handleDelete, isRequest } from '../../../services/orderService';
+import { fetchOrders, isRequest } from '../../../services/orderService';
 
 const Orders: React.FC = () => {
   const [orders, setOrders] = useState<(Order | Request)[]>([]);
@@ -33,21 +32,6 @@ const Orders: React.FC = () => {
   useEffect(() => {
     loadOrders();
   }, []);
-
-  const handleDeleteItem = async (id: number) => {
-    const token = localStorage.getItem('access_token');
-    if (!token || !selectedItem) return;
-
-    try {
-      await handleDelete(id, isRequest(selectedItem) ? 'request' : 'order', token);
-      setOrders(prevOrders => prevOrders.filter(order => order.id !== id));
-      setIsModalOpen(false);
-      setSelectedItem(null);
-    } catch (error) {
-      console.error('Error deleting item:', error);
-      alert('Failed to delete the item. Please try again.');
-    }
-  };
 
   const totalPages = Math.ceil(orders.length / ordersPerPage);
   const currentOrders = orders.slice(
@@ -82,7 +66,7 @@ const Orders: React.FC = () => {
             setSelectedItem(null);
           }}
           serviceDetails={selectedItem}
-          onDelete={handleDeleteItem}
+          onOrderTaken={loadOrders}
           type={isRequest(selectedItem) ? 'request' : 'order'}
         />
       )}

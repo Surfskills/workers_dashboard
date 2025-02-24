@@ -16,7 +16,7 @@ export type ServiceCategory =
   | 'Productivity'
   | 'Source';
 
-export interface MarketplaceService {
+export interface Service {
   id: string;
   title: string;
   description: string;
