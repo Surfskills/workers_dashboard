@@ -36,12 +36,9 @@ const Modal: React.FC<ModalProps> = ({
     try {
       await takeOrder(serviceDetails.id, token);
       onOrderTaken();
-      // Use toast notification instead of alert for a more professional UX
-      // Implemented in the UI, not shown here
       onClose();
     } catch (error) {
       console.error('Error taking order:', error);
-      // Use toast notification instead of alert
     } finally {
       setIsLoading(false);
     }
@@ -64,53 +61,52 @@ const Modal: React.FC<ModalProps> = ({
 
   // Function to render Service details
   const renderServiceDetails = () => {
-    // For general Service (not software or research)
     if (!isRequest(serviceDetails)) {
       return (
-        <div className="space-y-6">
+        <div className="space-y-4">
           <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
-            <h3 className="text-xl font-bold text-blue-800 mb-4">Service Specifications</h3>
+            <h3 className="text-lg md:text-xl font-bold text-blue-800 mb-4">Service Specifications</h3>
             
-            <div className="space-y-5">
-              <div className="bg-white rounded-lg p-4 shadow-sm">
-                <h4 className="text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+            <div className="space-y-4">
+              <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+                <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
                   Essential Information
                 </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="transform transition hover:scale-[1.01]">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
+                  <div>
                     <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Title</p>
-                    <p className="font-medium text-gray-800">{serviceDetails.title}</p>
+                    <p className="text-sm md:text-base font-medium text-gray-800">{serviceDetails.title}</p>
                   </div>
-                  <div className="transform transition hover:scale-[1.01]">
+                  <div>
                     <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Cost</p>
-                    <p className="font-medium text-gray-800">${serviceDetails.cost || 'N/A'}</p>
+                    <p className="text-sm md:text-base font-medium text-gray-800">${serviceDetails.cost || 'N/A'}</p>
                   </div>
-                  <div className="transform transition hover:scale-[1.01]">
+                  <div>
                     <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Delivery</p>
-                    <p className="font-medium text-gray-800">{serviceDetails.delivery_time || 'N/A'}</p>
+                    <p className="text-sm md:text-base font-medium text-gray-800">{serviceDetails.delivery_time || 'N/A'}</p>
                   </div>
-                  <div className="transform transition hover:scale-[1.01]">
+                  <div>
                     <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Contact</p>
-                    <p className="font-medium text-gray-800">{serviceDetails.phone_number || 'N/A'}</p>
+                    <p className="text-sm md:text-base font-medium text-gray-800">{serviceDetails.phone_number || 'N/A'}</p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg p-4 shadow-sm">
-                <h4 className="text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+              <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+                <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
                   Project Scope
                 </h4>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Description</p>
-                  <p className="font-medium text-gray-700 leading-relaxed">
+                  <p className="text-sm md:text-base font-medium text-gray-700 leading-relaxed">
                     {serviceDetails.description || 'No description provided'}
                   </p>
                 </div>
               </div>
 
               {serviceDetails.features && serviceDetails.features.length > 0 && (
-                <div className="bg-white rounded-lg p-4 shadow-sm">
-                  <h4 className="text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+                <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+                  <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
                     Service Features
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -129,15 +125,15 @@ const Modal: React.FC<ModalProps> = ({
               )}
               
               {serviceDetails.sizes && Object.keys(serviceDetails.sizes).length > 0 && (
-              <div className="bg-white rounded-lg p-4 shadow-sm">
-                <h4 className="text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
-                  Size Options
-                </h4>
-                <div className="divide-y divide-gray-100">
-                  {formatSizes(serviceDetails.sizes)}
+                <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+                  <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+                    Size Options
+                  </h4>
+                  <div className="divide-y divide-gray-100">
+                    {formatSizes(serviceDetails.sizes)}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
             </div>
           </div>
         </div>  
@@ -149,52 +145,52 @@ const Modal: React.FC<ModalProps> = ({
   // Function to render Software request details
   const renderSoftwareRequestDetails = (softwareRequest: SoftwareRequest) => {
     return (
-      <div className="space-y-6">
+      <div className="space-y-4">
         <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-4 rounded-lg">
-          <h3 className="text-xl font-bold text-indigo-800 mb-4">Software Development Brief</h3>
+          <h3 className="text-lg md:text-xl font-bold text-indigo-800 mb-4">Software Development Brief</h3>
           
-          <div className="space-y-5">
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-              <h4 className="text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+          <div className="space-y-4">
+            <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+              <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
                 Project Overview
               </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="transform transition hover:scale-[1.01]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
+                <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Project ID</p>
-                  <p className="font-medium text-gray-800">#{softwareRequest.id}</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">#{softwareRequest.id}</p>
                 </div>
-                <div className="transform transition hover:scale-[1.01]">
+                <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Title</p>
-                  <p className="font-medium text-gray-800">{softwareRequest.title}</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">{softwareRequest.title}</p>
                 </div>
               </div>
               <div className="mt-4">
                 <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Project Vision</p>
-                <p className="font-medium text-gray-700 leading-relaxed">{softwareRequest.project_description}</p>
+                <p className="text-sm md:text-base font-medium text-gray-700 leading-relaxed">{softwareRequest.project_description}</p>
               </div>
             </div>
             
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-              <h4 className="text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+            <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+              <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
                 Project Parameters
               </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
                 <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Budget Range</p>
-                  <p className="font-medium text-gray-800">{softwareRequest.budget_range}</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">{softwareRequest.budget_range}</p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Timeline</p>
-                  <p className="font-medium text-gray-800">{softwareRequest.timeline}</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">{softwareRequest.timeline}</p>
                 </div>
               </div>
             </div>
             
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-              <h4 className="text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+            <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+              <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
                 Technical Stack
               </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
                 <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Frontend</p>
                   <div className="flex flex-wrap gap-2 mt-1">
@@ -226,51 +222,51 @@ const Modal: React.FC<ModalProps> = ({
   // Function to render Research request details
   const renderResearchRequestDetails = (researchRequest: ResearchRequest) => {
     return (
-      <div className="space-y-6">
+      <div className="space-y-4">
         <div className="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 rounded-lg">
-          <h3 className="text-xl font-bold text-teal-800 mb-4">Research Project Details</h3>
+          <h3 className="text-lg md:text-xl font-bold text-teal-800 mb-4">Research Project Details</h3>
           
-          <div className="space-y-5">
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-              <h4 className="text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+          <div className="space-y-4">
+            <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+              <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
                 Project Identity
               </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="transform transition hover:scale-[1.01]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
+                <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Project ID</p>
-                  <p className="font-medium text-gray-800">#{researchRequest.id}</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">#{researchRequest.id}</p>
                 </div>
-                <div className="transform transition hover:scale-[1.01]">
+                <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Title</p>
-                  <p className="font-medium text-gray-800">{researchRequest.title}</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">{researchRequest.title}</p>
                 </div>
               </div>
               <div className="mt-4">
                 <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Research Scope</p>
-                <p className="font-medium text-gray-700 leading-relaxed">{researchRequest.project_description}</p>
+                <p className="text-sm md:text-base font-medium text-gray-700 leading-relaxed">{researchRequest.project_description}</p>
               </div>
             </div>
             
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-              <h4 className="text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+            <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+              <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
                 Academic Requirements
               </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
                 <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Citation Style</p>
-                  <p className="font-medium text-gray-800">{researchRequest.citation_style}</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">{researchRequest.citation_style}</p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Writing Technique</p>
-                  <p className="font-medium text-gray-800">{researchRequest.writing_technique}</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">{researchRequest.writing_technique}</p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Page Count</p>
-                  <p className="font-medium text-gray-800">{researchRequest.number_of_pages}</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">{researchRequest.number_of_pages}</p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Deadline</p>
-                  <p className="font-medium text-gray-800">{researchRequest.deadline}</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">{researchRequest.deadline}</p>
                 </div>
               </div>
             </div>
@@ -313,7 +309,7 @@ const Modal: React.FC<ModalProps> = ({
           </button>
         </div>
 
-        <header className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-5 text-white">
+        <header className="bg-gradient-to-r from-blue-600 to-blue-700 px-4 md:px-6 py-4 text-white">
           <div className="flex items-center space-x-2">
             <div className="bg-white/20 text-xs font-bold px-2 py-1 rounded">
               ORD{serviceDetails.id}
@@ -324,7 +320,7 @@ const Modal: React.FC<ModalProps> = ({
                 serviceDetails.request_type.slice(1) : 'Service'}
             </div>
           </div>
-          <h2 id="modal-title" className="text-2xl font-bold mt-2">
+          <h2 id="modal-title" className="text-xl md:text-2xl font-bold mt-2">
             {isRequest(serviceDetails)
               ? `${serviceDetails.request_type.charAt(0).toUpperCase() + 
                   serviceDetails.request_type.slice(1)} Request Details`
@@ -332,7 +328,7 @@ const Modal: React.FC<ModalProps> = ({
           </h2>
         </header>
 
-        <main className="p-6 overflow-y-auto max-h-[calc(100vh-240px)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+        <main className="p-4 md:p-6 overflow-y-auto max-h-[calc(100vh-240px)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
           {isRequest(serviceDetails) && serviceDetails.request_type === 'software' ? (
             renderSoftwareRequestDetails(serviceDetails as SoftwareRequest)
           ) : isRequest(serviceDetails) && serviceDetails.request_type === 'research' ? (
@@ -342,10 +338,10 @@ const Modal: React.FC<ModalProps> = ({
           )}
         </main>
 
-        <footer className="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row sm:justify-end gap-3">
+        <footer className="bg-gray-50 px-4 md:px-6 py-4 flex flex-col sm:flex-row sm:justify-end gap-3">
           <button
             onClick={toggleChat}
-            className="flex-1 sm:flex-none order-2 sm:order-1 bg-white text-blue-600 border border-blue-200 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 flex justify-center items-center"
+            className="w-full sm:w-auto order-2 sm:order-1 bg-white text-blue-600 border border-blue-200 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 flex justify-center items-center"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
@@ -357,7 +353,7 @@ const Modal: React.FC<ModalProps> = ({
             <button
               onClick={handleTakeOrder}
               disabled={isLoading}
-              className="flex-1 sm:flex-none order-1 sm:order-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 flex justify-center items-center"
+              className="w-full sm:w-auto order-1 sm:order-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 flex justify-center items-center"
             >
               {isLoading ? (
                 <>

@@ -42,7 +42,6 @@ const Orders: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="space-y-6 bg-white p-4 md:p-6 rounded-lg shadow-lg">
-        <h2 className="text-lg md:text-2xl font-semibold text-gray-900">Orders</h2>
         
         <OrderList
           orders={currentOrders}

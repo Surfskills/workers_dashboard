@@ -1,15 +1,14 @@
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
-import MyOrders from '../components/orders/AvailableOrders';
+import MyOrders from '../components/orders/AvailableOrders';  // Update to MyOrders
 import AnalyticsSection from '../components/dashboard/Analytics';
 import SettingsSection from '../components/dashboard/Settings';
 import SupportTicketForm from '../components/dashboard/Support';
 import { useAuth } from '../components/auth/AuthContext';
 import { useRouter } from 'next/navigation';
 import Loading from './loading';
-import AvailableOrders from '../components/orders/AvailableOrders';
-
+import AvailableOrders from '../components/orders/AvailableOrders';  // Keep this import only
 
 const CalendlyIntegration = {
   loadScript: (setCalendlyLoaded: React.Dispatch<React.SetStateAction<boolean>>) => {
@@ -33,8 +32,12 @@ const CalendlyIntegration = {
   },
 };
 
+// Define the type for the valid keys of the tabLabels object
+type TabKey = 'availableorders' | 'myorders' | 'analytics' | 'settings' | 'support';
+
 const DashboardPage = () => {
-  const [activeTab, setActiveTab] = useState('availableorders');
+  // Explicitly type activeTab as one of the valid keys of TabKey
+  const [activeTab, setActiveTab] = useState<TabKey>('availableorders');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [calendlyLoaded, setCalendlyLoaded] = useState(false);
   const { isAuthenticated } = useAuth();
@@ -60,6 +63,14 @@ const DashboardPage = () => {
       {activeTab === 'support' && <SupportTicketForm />}
     </Suspense>
   );
+
+  const tabLabels: Record<TabKey, string> = {
+    availableorders: 'Available Orders',
+    myorders: 'My Orders',
+    analytics: 'Analytics',
+    settings: 'Settings',
+    support: 'Support Ticket',
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -108,13 +119,7 @@ const DashboardPage = () => {
           } sm:block mt-4 sm:mt-4 transition-all duration-300 ease-in-out`}>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
-                {[
-                  { key: 'availableorders', label: 'Available Orders' },
-                  { key: 'myorders', label: 'My Orders' },
-                  { key: 'analytics', label: 'Analytics' },
-                  { key: 'settings', label: 'Settings' },
-                  { key: 'support', label: 'Support Ticket' },
-                ].map(({ key, label }) => (
+                {Object.entries(tabLabels).map(([key, label]) => (
                   <button
                     key={key}
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors w-full sm:w-auto text-left ${
@@ -123,7 +128,7 @@ const DashboardPage = () => {
                         : 'text-gray-600 hover:bg-gray-50'
                     }`}
                     onClick={() => {
-                      setActiveTab(key);
+                      setActiveTab(key as TabKey); // Type assertion for `key`
                       setIsMenuOpen(false);
                     }}
                   >
@@ -150,7 +155,7 @@ const DashboardPage = () => {
         <main className="bg-white shadow-lg rounded-lg">
           <div className="p-3 sm:p-6">
             <h2 className="text-lg font-medium text-blue-600 sm:text-xl mb-4 sm:mb-6">
-              {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+              {tabLabels[activeTab]} {/* Render the active tab label */}
             </h2>
             {renderTabContent()}
           </div>
