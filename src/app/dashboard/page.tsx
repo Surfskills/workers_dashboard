@@ -1,13 +1,15 @@
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
-import OrdersSection from '../components/dashboard/Orders';
+import MyOrders from '../components/orders/AvailableOrders';
 import AnalyticsSection from '../components/dashboard/Analytics';
 import SettingsSection from '../components/dashboard/Settings';
 import SupportTicketForm from '../components/dashboard/Support';
 import { useAuth } from '../components/auth/AuthContext';
 import { useRouter } from 'next/navigation';
 import Loading from './loading';
+import AvailableOrders from '../components/orders/AvailableOrders';
+
 
 const CalendlyIntegration = {
   loadScript: (setCalendlyLoaded: React.Dispatch<React.SetStateAction<boolean>>) => {
@@ -32,7 +34,7 @@ const CalendlyIntegration = {
 };
 
 const DashboardPage = () => {
-  const [activeTab, setActiveTab] = useState('orders');
+  const [activeTab, setActiveTab] = useState('availableorders');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [calendlyLoaded, setCalendlyLoaded] = useState(false);
   const { isAuthenticated } = useAuth();
@@ -51,7 +53,8 @@ const DashboardPage = () => {
 
   const renderTabContent = (): React.JSX.Element => (
     <Suspense fallback={<Loading />}>
-      {activeTab === 'orders' && <OrdersSection />}
+      {activeTab === 'availableorders' && <AvailableOrders />}
+      {activeTab === 'myorders' && <MyOrders />}
       {activeTab === 'analytics' && <AnalyticsSection />}
       {activeTab === 'settings' && <SettingsSection />}
       {activeTab === 'support' && <SupportTicketForm />}
@@ -65,7 +68,7 @@ const DashboardPage = () => {
         <div className="max-w-7xl mx-auto px-4 py-4">
           {/* Top Bar */}
           <div className="flex justify-between items-center">
-            <h1 className="text-lg font-medium text-blue-600 sm:text-xl">Client Dashboard</h1>
+            <h1 className="text-lg font-medium text-blue-600 sm:text-xl">Contractor Dashboard</h1>
             
             {/* Mobile Menu Button */}
             <button
@@ -106,7 +109,8 @@ const DashboardPage = () => {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
                 {[
-                  { key: 'orders', label: 'Orders' },
+                  { key: 'availableorders', label: 'Available Orders' },
+                  { key: 'myorders', label: 'My Orders' },
                   { key: 'analytics', label: 'Analytics' },
                   { key: 'settings', label: 'Settings' },
                   { key: 'support', label: 'Support Ticket' },

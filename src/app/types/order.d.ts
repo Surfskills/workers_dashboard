@@ -1,5 +1,4 @@
-// src/types/Order.ts
-
+// src/types/order.ts
 export interface Order {
     id: number;
     title: string;
@@ -7,8 +6,14 @@ export interface Order {
     cost: number;
     delivery_time: string;
     support_duration: string;
-    features?: string[]; // Optional features
-    payment_status: string;
-    order_status: string;
-    process_link: string;
-}
+    features?: string[];
+    is_taken?: boolean;
+  }
+  
+  export interface Request {
+    id: number;
+    title: string;
+    project_description: string;
+    request_type: 'software' | 'research';
+    is_taken?: boolean;
+  }
