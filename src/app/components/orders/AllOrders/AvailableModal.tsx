@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Order, Request, SoftwareRequest, ResearchRequest } from '../../types/order';
-import ChatModal from '../dashboard/ChatRoomModal';
-import { takeOrder } from '../../../services/orderService';
+import { Order, Request, SoftwareRequest, ResearchRequest } from '../../../types/order';
+import ChatModal from '../../dashboard/ChatRoomModal';
+import { takeOrder } from '../../../../services/orderService';
 
 interface ModalProps {
   isOpen: boolean;

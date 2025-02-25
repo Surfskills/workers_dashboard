@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Order, Request } from '../../types/order';
-import OrderList from './OrderList';
-import Modal from './Modal';
-import { fetchOrders, isRequest } from '../../../services/orderService';
+import { Order, Request } from '../../../types/order';
+import OrderList from '../OrderList';
+import Modal from './AvailableModal';
+import { fetchOrders, isRequest } from '../../../../services/orderService';
 
 const Orders: React.FC = () => {
   const [orders, setOrders] = useState<(Order | Request)[]>([]);

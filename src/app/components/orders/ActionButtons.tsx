@@ -18,8 +18,8 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   };
 
   // Determine if this is an order or a request for styling purposes
-  const itemType = isRequest(item) 
-    ? item.request_type.toLowerCase() 
+  const itemType = isRequest(item) && item.request_type 
+    ? item.request_type.toLowerCase()  // Only access request_type if item is a Request and not null
     : 'service';
   
   // Get appropriate background color gradient based on type

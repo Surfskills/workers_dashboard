@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
-import MyOrders from '../components/orders/AvailableOrders';  // Update to MyOrders
 import AnalyticsSection from '../components/dashboard/Analytics';
 import SettingsSection from '../components/dashboard/Settings';
 import SupportTicketForm from '../components/dashboard/Support';
 import { useAuth } from '../components/auth/AuthContext';
 import { useRouter } from 'next/navigation';
 import Loading from './loading';
-import AvailableOrders from '../components/orders/AvailableOrders';  // Keep this import only
+import AvailableOrders from '../components/orders/AllOrders/AvailableOrders';  // Keep this import only
+import MyOrders from '../components/orders/MyOrders/MyOrders';
 
 const CalendlyIntegration = {
   loadScript: (setCalendlyLoaded: React.Dispatch<React.SetStateAction<boolean>>) => {

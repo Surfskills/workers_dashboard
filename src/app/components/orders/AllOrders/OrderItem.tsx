@@ -1,6 +1,6 @@
 import React from 'react';
-import { Order, Request } from '../../types/order';
-import ActionButtons from './ActionButtons';
+import { Order, Request } from '../../../types/order';
+import ActionButtons from '../ActionButtons';
 
 interface OrderItemProps {
   item: Order | Request;
@@ -52,13 +52,13 @@ const OrderItem: React.FC<OrderItemProps> = ({ item, onViewDetails, onOrderTaken
     <div className={`flex flex-col lg:flex-row items-start lg:items-center justify-between gap-y-4 lg:gap-x-6 border rounded-lg ${styles.border} ${styles.bg} p-4 shadow-sm hover:shadow-md transition-all transform hover:scale-[1.01] duration-200`}>
       <div className="flex flex-col lg:flex-row items-start lg:items-center gap-x-4 flex-1 px-2 lg:px-0">
         <div className="flex items-center space-x-2">
-        <div className="bg-white/80 text-xs px-2 py-1 rounded shadow-sm text-black">
-  ORD{item.id}
-</div>
+          <div className="bg-white/80 text-xs px-2 py-1 rounded shadow-sm text-black">
+            ORD{item.id}
+          </div>
           <div className="h-4 w-px bg-gray-300 hidden lg:block"></div>
           <div className={`text-xs font-medium ${styles.text} hidden lg:block`}>
-            {isRequest(item) 
-              ? item.request_type.charAt(0).toUpperCase() + item.request_type.slice(1) 
+            {isRequest(item) && item.request_type 
+              ? item.request_type.charAt(0).toUpperCase() + item.request_type.slice(1)
               : 'Service'}
           </div>
         </div>
@@ -78,8 +78,8 @@ const OrderItem: React.FC<OrderItemProps> = ({ item, onViewDetails, onOrderTaken
         
         {/* Mobile only type badge */}
         <div className={`lg:hidden text-xs font-medium ${styles.text} px-2 py-0.5 rounded-full bg-white/50 mt-1 inline-block`}>
-          {isRequest(item) 
-            ? item.request_type.charAt(0).toUpperCase() + item.request_type.slice(1) 
+          {isRequest(item) && item.request_type 
+            ? item.request_type.charAt(0).toUpperCase() + item.request_type.slice(1)
             : 'Service'}
         </div>
       </div>

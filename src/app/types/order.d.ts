@@ -1,5 +1,3 @@
-// src/types/order.ts
-
 export interface Order {
   id: number;
   title: string;
@@ -11,7 +9,10 @@ export interface Order {
   sizes?: Record<string, any>; // Optional field, JSON object
   features?: string[]; // Optional field
   is_taken?: boolean;
+  is_completed?: boolean;
   project_description: string;
+  creatorId: number;  // Added creatorId to Order
+  status: 'pending' | 'accepted' | 'completed' | 'cancelled';  // New field to track the status
 }
 
 export interface Request {
@@ -26,27 +27,15 @@ export interface Request {
   sizes?: Record<string, any>; // Optional field, JSON object
   features?: string[]; // Optional field
   is_taken?: boolean;
+  is_completed?: boolean;
   project_description: string;
-}
-
-export interface BaseRequestData {
-  projectTitle: string;
-  projectDescription: string;
-  requestType: 'software' | 'research';
-}
-
-export interface Request {
-  id: number;
-  title: string;
-  project_description: string;
-  request_type: 'software' | 'research';
-  status: string;
-  payment_status: string;
-  order_status: string;
+  creatorId: number;  // Added creatorId to Request
+  status: 'pending' | 'accepted' | 'completed' | 'cancelled';  // New field to track the status
+  payment_status: 'unpaid' | 'paid';  // New field for payment status
+  order_status: 'open' | 'closed';  // New field for order status
   created_at: string;
   updated_at: string;
   user: number;
-  is_taken?: boolean;
 }
 
 export interface SoftwareRequest extends Request {
@@ -91,8 +80,6 @@ export interface ResearchRequest extends Request {
   cost: number;
 }
 
-
-
 export interface ResearchRequestData extends BaseRequestData {
   requestType: 'research';
   academicWritingType: string;
@@ -112,5 +99,3 @@ export interface ResearchRequestData extends BaseRequestData {
 }
 
 export type CustomRequestData = SoftwareRequestData | ResearchRequestData;
-
-

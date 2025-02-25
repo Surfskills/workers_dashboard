@@ -1,6 +1,6 @@
 import React from 'react';
 import { Order, Request } from '../../types/order';
-import OrderItem from './OrderItem';
+import OrderItem from './AllOrders/OrderItem';
 import Pagination from './Pagination';
 import LoadingSkeleton from './SkeletonLoading';
 import EmptyState from './EmptyState';
