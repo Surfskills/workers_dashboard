@@ -55,8 +55,8 @@ const Orders: React.FC = () => {
           totalPages={totalPages}
           onPageChange={setCurrentPage}
           onViewDetails={(item) => {
-            setSelectedItem(item);
-            setIsModalOpen(true);
+            setSelectedItem(item); // Set selected item for modal
+            setIsModalOpen(true); // Open modal
           }}
           onOrderTaken={loadOrders} // Re-fetch orders after an action like accepting or completing an order
         />
@@ -66,12 +66,12 @@ const Orders: React.FC = () => {
         <Modal
           isOpen={isModalOpen}
           onClose={() => {
-            setIsModalOpen(false);
-            setSelectedItem(null);
+            setIsModalOpen(false); // Close the modal
+            setSelectedItem(null); // Reset selected item after modal closes
           }}
-          serviceDetails={selectedItem}
-          onOrderTaken={loadOrders}
-          type={isRequest(selectedItem) ? 'request' : 'order'}
+          serviceDetails={selectedItem.service} // Pass only the service details to Modal
+          onOrderTaken={loadOrders} // Refresh orders after action
+          type={isRequest(selectedItem) ? 'request' : 'order'} // Use isRequest to determine the type
         />
       )}
     </div>

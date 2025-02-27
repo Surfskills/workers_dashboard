@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { Order, Request } from './../app/types/order';
 
-const API_BASE_URL = 'https://fred-server.onrender.com/api';
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 export const fetchOrders = async (token: string): Promise<Order[]> => {
   try {
@@ -26,7 +26,7 @@ export const fetchAcceptedOrders = async (token: string): Promise<Order[]> => {
     const acceptedOrdersResponse = await axios.get(`${API_BASE_URL}/workers/accepted-offers/`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-
+    console.log(acceptedOrdersResponse.data); 
     return acceptedOrdersResponse.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -37,11 +37,14 @@ export const fetchAcceptedOrders = async (token: string): Promise<Order[]> => {
   }
 };
 
-export const takeOrder = async (offerId: number, token: string) => {
+export const takeOrder = async (offerId: number, offerType: string, token: string) => {
   try {
     const response = await axios.post(
       `${API_BASE_URL}/workers/accept-offer/`,
-      { offer_id: offerId }, // Update order_id to offer_id
+      { 
+        offer_id: offerId,
+        offer_type: offerType  // Add this parameter
+      },
       { headers: { Authorization: `Bearer ${token}` } }
     );
     return response.data;

@@ -12,6 +12,7 @@ const Orders: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const ordersPerPage = 6;
 
+  // Fetch orders function
   const loadOrders = async () => {
     const token = localStorage.getItem('access_token');
     if (!token) {

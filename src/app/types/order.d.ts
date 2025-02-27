@@ -2,6 +2,7 @@ export interface Order {
   id: number;
   title: string;
   description: string;
+  service?: ServiceDetails; 
   cost: number;
   delivery_time: string;
   support_duration: string;
@@ -18,6 +19,7 @@ export interface Order {
 export interface Request {
   id: number;
   title: string;
+  service?: ServiceDetails; 
   project_description: string;
   request_type: 'software' | 'research';
   description?: string; // Optional field

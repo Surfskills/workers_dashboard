@@ -18,7 +18,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const API_BASE_URL = 'https://fred-server.onrender.com';
+const API_BASE_URL = 'http://127.0.0.1:8000/';
 
 export const useAuth = (): AuthContextType => {
     const context = useContext(AuthContext);
