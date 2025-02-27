@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Order, Request } from '../../../types/order';
-import OrderList from '../OrderList';
+import OrderList from './OrderList';
 import Modal from './AvailableModal';
 import { fetchOrders, isRequest } from '../../../../services/orderService';
 

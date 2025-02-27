@@ -349,15 +349,6 @@ const Modal: React.FC<ModalProps> = ({
         </main>
 
         <footer className="bg-gray-50 px-4 md:px-6 py-4 flex flex-col sm:flex-row sm:justify-end gap-3">
-          <button
-            onClick={toggleChat}
-            className="w-full sm:w-auto order-2 sm:order-1 bg-white text-blue-600 border border-blue-200 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 flex justify-center items-center"
-          >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-            </svg>
-            {isChatOpen ? 'Close Chat' : 'Open Chat'}
-          </button>
           
           {!serviceDetails.is_taken && (
             <button
