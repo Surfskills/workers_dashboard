@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Order, Request, SoftwareRequest, ResearchRequest } from '../../../types/order';
 import ChatModal from '../../dashboard/ChatRoomModal';
-import { takeOrder } from '../../../../services/orderService';
+import { returnOrder } from '../../../../services/orderService';
 
 interface ModalProps {
   isOpen: boolean;
@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({
 
   const toggleChat = () => setIsChatOpen(!isChatOpen);
 
-  const handleTakeOrder = async () => {
+  const handleReturnOrder = async () => {
     const token = localStorage.getItem('access_token');
     if (!token) {
       window.location.href = '/auth/signin/';
@@ -34,20 +34,11 @@ const Modal: React.FC<ModalProps> = ({
   
     setIsLoading(true);
     try {
-      // Determine the offer type based on the serviceDetails structure
-      let offerType = 'service'; // Default to 'service'
-      
-      // Check if it's a request by checking for the request_type property
-      if ('request_type' in serviceDetails) {
-        // Use the exact request_type as expected by backend: 'software' or 'research'
-        offerType = serviceDetails.request_type;
-      }
-      
-      await takeOrder(serviceDetails.id, offerType, token);
+      await returnOrder(serviceDetails.id, token);
       onOrderTaken();
       onClose();
     } catch (error) {
-      console.error('Error taking order:', error);
+      console.error('Error returning order:', error);
     } finally {
       setIsLoading(false);
     }
@@ -361,7 +352,7 @@ const Modal: React.FC<ModalProps> = ({
           
           {!serviceDetails.is_taken && (
             <button
-              onClick={handleTakeOrder}
+              onClick={handleReturnOrder}
               disabled={isLoading}
               className="w-full sm:w-auto order-1 sm:order-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 flex justify-center items-center"
             >

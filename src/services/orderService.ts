@@ -90,15 +90,17 @@ export const completeOrder = async (orderId: number, token: string) => {
 export const returnOrder = async (offerId: number, token: string) => {
   try {
     const response = await axios.post(
-      `${API_BASE_URL}/service/return-offer/`,
+      `${API_BASE_URL}/workers/accepted-offers/${offerId}/return_offer/`,
       { offer_id: offerId },
       { headers: { Authorization: `Bearer ${token}` } }
     );
-    return response.data;
+    return response.data; // Return the response data
   } catch (error) {
-    throw error;
+    // Log the error for debugging purposes
+    throw error; // Rethrow the error for handling in your component
   }
 };
+
 
 // Type guard utility
 export const isRequest = (item: Order | Request): item is Request => {
