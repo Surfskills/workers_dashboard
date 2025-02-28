@@ -69,9 +69,8 @@ const Orders: React.FC = () => {
             setIsModalOpen(false); // Close the modal
             setSelectedItem(null); // Reset selected item after modal closes
           }}
-          serviceDetails={selectedItem.service} // Pass only the service details to Modal
-          onOrderTaken={loadOrders} // Refresh orders after action
-          type={isRequest(selectedItem) ? 'request' : 'order'} // Use isRequest to determine the type
+          acceptedOffer={selectedItem} // Pass the entire AcceptedOffer object
+          onOrderTaken={loadOrders}
         />
       )}
     </div>

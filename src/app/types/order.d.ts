@@ -1,6 +1,16 @@
+export interface AcceptedOffer {
+  id: number;
+  status: string;
+  service?: ServiceDetails;
+  software_request?: SoftwareRequest;
+  research_request?: ResearchRequest;
+  // Add any other fields from your Django AcceptedOffer model
+}
 export interface Order {
   id: number;
   title: string;
+  software_request?: SoftwareRequest;
+  research_request?: ResearchRequest;
   description: string;
   service?: ServiceDetails; 
   cost: number;
@@ -20,6 +30,8 @@ export interface Request {
   id: number;
   title: string;
   service?: ServiceDetails; 
+  software_request?: SoftwareRequest;
+  research_request?: ResearchRequest;
   project_description: string;
   request_type: 'software' | 'research';
   description?: string; // Optional field

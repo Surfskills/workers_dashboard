@@ -6,22 +6,20 @@ import { returnOrder } from '../../../../services/orderService';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  serviceDetails: Order | Request;
+  acceptedOffer: Order | Request; // Changed prop name to accept full AcceptedOffer
   onOrderTaken: () => void;
-  type: 'order' | 'request';
 }
 
 const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  serviceDetails,
+  acceptedOffer,
   onOrderTaken,
-  type
 }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  if (!isOpen || !serviceDetails) return null;
+  if (!isOpen || !acceptedOffer) return null;
 
   const toggleChat = () => setIsChatOpen(!isChatOpen);
 
@@ -34,7 +32,8 @@ const Modal: React.FC<ModalProps> = ({
   
     setIsLoading(true);
     try {
-      await returnOrder(serviceDetails.id, token);
+      // Use the AcceptedOffer's ID instead of nested service ID
+      await returnOrder(acceptedOffer.id, token);
       onOrderTaken();
       onClose();
     } catch (error) {
@@ -43,6 +42,10 @@ const Modal: React.FC<ModalProps> = ({
       setIsLoading(false);
     }
   };
+
+  // Extract nested details from AcceptedOffer
+  const { service, software_request, research_request } = acceptedOffer;
+  const serviceDetails = service || software_request || research_request;
 
   // Type guard for Request
   const isRequest = (details: Order | Request): details is Request => {
@@ -61,7 +64,7 @@ const Modal: React.FC<ModalProps> = ({
 
   // Function to render Service details
   const renderServiceDetails = () => {
-    if (!isRequest(serviceDetails)) {
+    if (service && !isRequest(service)) {
       return (
         <div className="space-y-4">
           <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
@@ -75,19 +78,19 @@ const Modal: React.FC<ModalProps> = ({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
                   <div>
                     <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Title</p>
-                    <p className="text-sm md:text-base font-medium text-gray-800">{serviceDetails.title}</p>
+                    <p className="text-sm md:text-base font-medium text-gray-800">{service.title}</p>
                   </div>
                   <div>
                     <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Cost</p>
-                    <p className="text-sm md:text-base font-medium text-gray-800">${serviceDetails.cost || 'N/A'}</p>
+                    <p className="text-sm md:text-base font-medium text-gray-800">${service.cost || 'N/A'}</p>
                   </div>
                   <div>
                     <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Delivery</p>
-                    <p className="text-sm md:text-base font-medium text-gray-800">{serviceDetails.delivery_time || 'N/A'}</p>
+                    <p className="text-sm md:text-base font-medium text-gray-800">{service.delivery_time || 'N/A'}</p>
                   </div>
                   <div>
                     <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Contact</p>
-                    <p className="text-sm md:text-base font-medium text-gray-800">{serviceDetails.phone_number || 'N/A'}</p>
+                    <p className="text-sm md:text-base font-medium text-gray-800">{service.phone_number || 'N/A'}</p>
                   </div>
                 </div>
               </div>
@@ -99,39 +102,38 @@ const Modal: React.FC<ModalProps> = ({
                 <div>
                   <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Description</p>
                   <p className="text-sm md:text-base font-medium text-gray-700 leading-relaxed">
-                    {serviceDetails.description || 'No description provided'}
+                    {service.description || 'No description provided'}
                   </p>
                 </div>
               </div>
 
-              {serviceDetails.features && serviceDetails.features.length > 0 && (
-            <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
-              <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
-                Service Features
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {serviceDetails.features.map((feature: string, index: number) => (
-                  <div key={feature + index} className="flex items-start"> {/* Ensure key is unique */}
-                    <div className="flex-shrink-0 mt-1">
-                      <svg className="h-4 w-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <p className="ml-2 text-sm text-gray-700">{feature}</p>
+              {service.features?.length > 0 && (
+                <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+                  <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+                    Service Features
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {service.features.map((feature: string, index: number) => (
+                      <div key={`${feature}-${index}`} className="flex items-start">
+                        <div className="flex-shrink-0 mt-1">
+                          <svg className="h-4 w-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <p className="ml-2 text-sm text-gray-700">{feature}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-
+                </div>
+              )}
               
-              {serviceDetails.sizes && Object.keys(serviceDetails.sizes).length > 0 && (
+              {service.sizes && Object.keys(service.sizes).length > 0 && (
                 <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
                   <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
                     Size Options
                   </h4>
                   <div className="divide-y divide-gray-100">
-                    {formatSizes(serviceDetails.sizes)}
+                    {formatSizes(service.sizes)}
                   </div>
                 </div>
               )}
@@ -313,16 +315,17 @@ const Modal: React.FC<ModalProps> = ({
         <header className="bg-gradient-to-r from-blue-600 to-blue-700 px-4 md:px-6 py-4 text-white">
           <div className="flex items-center space-x-2">
             <div className="bg-white/20 text-xs font-bold px-2 py-1 rounded">
-              ORD{serviceDetails.id}
+              ORD{acceptedOffer.id} {/* Use AcceptedOffer ID instead of service ID */}
             </div>
             <div className="h-5 w-px bg-white/30"></div>
             <div className="text-sm font-medium text-blue-100">
-              {isRequest(serviceDetails) ? serviceDetails.request_type.charAt(0).toUpperCase() + 
-                serviceDetails.request_type.slice(1) : 'Service'}
+              {serviceDetails?.request_type 
+                ? serviceDetails.request_type.charAt(0).toUpperCase() + serviceDetails.request_type.slice(1)
+                : 'Service'}
             </div>
           </div>
           <h2 id="modal-title" className="text-xl md:text-2xl font-bold mt-2">
-            {isRequest(serviceDetails)
+            {serviceDetails?.request_type
               ? `${serviceDetails.request_type.charAt(0).toUpperCase() + 
                   serviceDetails.request_type.slice(1)} Request Details`
               : 'Service Specifications'}
@@ -330,10 +333,10 @@ const Modal: React.FC<ModalProps> = ({
         </header>
 
         <main className="p-4 md:p-6 overflow-y-auto max-h-[calc(100vh-240px)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-          {isRequest(serviceDetails) && serviceDetails.request_type === 'software' ? (
-            renderSoftwareRequestDetails(serviceDetails as SoftwareRequest)
-          ) : isRequest(serviceDetails) && serviceDetails.request_type === 'research' ? (
-            renderResearchRequestDetails(serviceDetails as ResearchRequest)
+          {software_request ? (
+            renderSoftwareRequestDetails(software_request)
+          ) : research_request ? (
+            renderResearchRequestDetails(research_request)
           ) : (
             renderServiceDetails()
           )}
@@ -350,30 +353,28 @@ const Modal: React.FC<ModalProps> = ({
             {isChatOpen ? 'Close Chat' : 'Open Chat'}
           </button>
           
-          {!serviceDetails.is_taken && (
-            <button
-              onClick={handleReturnOrder}
-              disabled={isLoading}
-              className="w-full sm:w-auto order-1 sm:order-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 flex justify-center items-center"
-            >
-              {isLoading ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Processing...
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Return Order
-                </>
-              )}
-            </button>
-          )}
+          <button
+            onClick={handleReturnOrder}
+            disabled={isLoading}
+            className="w-full sm:w-auto order-1 sm:order-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 flex justify-center items-center"
+          >
+            {isLoading ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Return Order
+              </>
+            )}
+          </button>
         </footer>
       </div>
 
@@ -381,7 +382,7 @@ const Modal: React.FC<ModalProps> = ({
         <ChatModal
           isOpen={isChatOpen}
           onClose={toggleChat}
-          roomId={serviceDetails.id.toString()}
+          roomId={acceptedOffer.id.toString()} 
         />
       )}
     </div>
