@@ -149,7 +149,7 @@ const Header = () => {
             {!isAuthenticated ? (
               <div className="space-y-2">
                 <Link
-                  href="/signin"
+                  href="auth/signin"
                   className="flex items-center space-x-2 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 transition-all duration-200"
                 >
                   <LogIn className="w-5 h-5" />
