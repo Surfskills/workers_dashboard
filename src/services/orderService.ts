@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { Order, Request } from './../app/types/order';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'https://fred-server.onrender.com/api';
 
 export const fetchOrders = async (token: string): Promise<Order[]> => {
   try {
