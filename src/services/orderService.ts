@@ -6,9 +6,17 @@ const API_BASE_URL = 'https://fred-server.onrender.com/api';
 
 export const fetchOrders = async (token: string): Promise<Order[]> => {
   try {
-    const serviceOrdersResponse = await axios.get(`${API_BASE_URL}/workers/available-offers/`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    // Add filtering to exclude offers with 'accepted' and 'completed' statuses
+    const serviceOrdersResponse = await axios.get(
+      `${API_BASE_URL}/workers/available-offers/`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        // Add params to filter out both 'accepted' and 'completed' offers
+        params: {
+          exclude_statuses: ['accepted', 'completed']
+        }
+      }
+    );
 
     return serviceOrdersResponse.data;
   } catch (error) {
@@ -16,6 +24,58 @@ export const fetchOrders = async (token: string): Promise<Order[]> => {
       localStorage.removeItem('access_token');
       window.location.href = '/auth/signin/';
     }
+    throw error;
+  }
+};
+
+export const completeOrder = async (
+  offerId: number,
+  offerType: string,
+  token: string
+) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/workers/accepted-offers/${offerId}/complete/`,
+      {
+        offer_id: offerId,
+        offer_type: offerType,
+      },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+export const uploadFiles = async (
+  files: File[],
+  token: string,
+  uploadType: string,
+  objectId: string | number
+) => {
+  try {
+    const formData = new FormData();
+    // Append additional required fields
+    formData.append("upload_type", uploadType);
+    formData.append("object_id", objectId.toString());
+    // Append each file
+    files.forEach((file) => formData.append("files", file));
+
+    const response = await axios.post(
+      `${API_BASE_URL}/workers/upload-files/`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // Let the browser set the correct Content-Type boundary automatically
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error uploading files:", error);
     throw error;
   }
 };
@@ -71,19 +131,6 @@ export const handleDelete = async (id: number, type: 'order' | 'request', token:
 
 // New functions to add
 
-// Function to complete an order
-export const completeOrder = async (orderId: number, token: string) => {
-  try {
-    const response = await axios.post(
-      `${API_BASE_URL}/service/complete-order/`,
-      { order_id: orderId },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
 
 
 // Function to return an order
