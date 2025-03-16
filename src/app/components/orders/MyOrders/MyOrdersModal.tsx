@@ -125,17 +125,20 @@ const Modal: React.FC<ModalProps> = ({
   const renderServiceDetails = () => {
     if (service && !isRequest(service)) {
       return (
-        <div className="space-y-4">
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
-            <h3 className="text-lg md:text-xl font-bold text-blue-800 mb-4">Service Specifications</h3>
-            
-            <div className="space-y-4">
-              <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
-                <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
-                  Essential Information
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
-                  <div>
+        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-4 rounded-lg">
+          <h3 className="text-lg md:text-xl font-bold text-indigo-800 mb-4">Service Specifications</h3>
+          
+          <div className="space-y-4">
+            <div className="bg-white rounded-lg p-3 md:p-4 shadow-sm">
+              <h4 className="text-base md:text-lg font-semibold text-gray-800 border-b border-gray-100 pb-2 mb-3">
+                Service Overview
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
+                <div>
+                  <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Service ID</p>
+                  <p className="text-sm md:text-base font-medium text-gray-800">#{serviceDetails.id}</p>
+                </div>
+                <div>
                     <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Title</p>
                     <p className="text-sm md:text-base font-medium text-gray-800">{service.title}</p>
                   </div>
@@ -198,7 +201,7 @@ const Modal: React.FC<ModalProps> = ({
               )}
             </div>
           </div>
-        </div>  
+        
       ); 
     }
     return null;

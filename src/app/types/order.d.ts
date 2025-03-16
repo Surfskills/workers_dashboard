@@ -4,7 +4,19 @@ export interface AcceptedOffer {
   service?: ServiceDetails;
   software_request?: SoftwareRequest;
   research_request?: ResearchRequest;
-  // Add any other fields from your Django AcceptedOffer model
+  description: string;
+  cost: number;
+  request_type: 'software' | 'research' | 'service';
+  delivery_time: string;
+  support_duration: string;
+  phone_number?: string; // Optional field
+  sizes?: Record<string, any>; // Optional field, JSON object
+  features?: string[]; // Optional field
+  is_taken?: boolean;
+  is_completed?: boolean;
+  project_description: string;
+  creatorId: number;  // Added creatorId to Order
+  status: 'pending' | 'accepted' | 'completed' | 'cancelled';  // New field to track the status
 }
 export interface Order {
   id: number;
